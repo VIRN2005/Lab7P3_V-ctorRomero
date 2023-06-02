@@ -10,8 +10,7 @@ using namespace std;
 
 void menu() {
 	int opcion;
-	vector <EstudianteCobra*> Est_Cobra;
-	vector <EstudianteBlockchain*> Est_Blockchain;
+	vector <Dojo*> dojos;
 
 	do {
 		cout << "---MENU---\n";
@@ -47,7 +46,13 @@ void menu() {
 				cin >> edad;
 
 				EstudianteCobra* cobra = new EstudianteCobra(nombre, edad, new Cinta(1));
-				Est_Cobra.push_back(cobra);
+
+				if (dojos.size() > 0) {
+					dojos[0]->addEstudiante(cobra);
+				}
+				else {
+					cout << "No se encontró el Dojo Cobra. Por favor, crea el Dojo primero." << endl;
+				}
 			}
 				  break;
 
@@ -60,7 +65,13 @@ void menu() {
 				cin >> edad;
 
 				EstudianteBlockchain* blockchain = new EstudianteBlockchain(nombre, edad, new Cinta(1));
-				Est_Blockchain.push_back(blockchain);
+
+				if (dojos.size() > 1) {
+					dojos[1]->addEstudiante(blockchain);
+				}
+				else {
+					cout << "No se encontró el Dojo Blockchain. Por favor, crea el Dojo primero." << endl;
+				}
 			}
 				  break;
 			}
@@ -68,17 +79,50 @@ void menu() {
 			  break;
 
 		case 2: { // MODIFICAR
-			cout << "Estudiantes Dojo Cobra\n";
-			int i = 0;
-			for (const auto& estudiante : Est_Cobra) {
-				cout << i++ << ")  Nombre: " << estudiante->getNombre() << ", Edad: " << estudiante->getEdad() << "\n";
+			if (dojos.size() > 0) {
+				dojos[0]->mostrarEstudiantes();
+				cout << "Ingrese la posición del estudiante a modificar: ";
+				int pos;
+				cin >> pos;
+
+				if (pos >= 0 && pos < 4 && dojos[0]->getEstudiantes()[pos] != nullptr) {
+					string nuevoNombre;
+					int nuevaEdad;
+
+					cout << "Ingrese el nuevo nombre: ";
+					cin >> nuevoNombre;
+					cout << "Ingrese la nueva edad: ";
+					cin >> nuevaEdad;
+
+					dojos[0]->getEstudiantes()[pos]->setNombre(nuevoNombre);
+					dojos[0]->getEstudiantes()[pos]->setEdad(nuevaEdad);
+				}
+				else {
+					cout << "Posición inválida o estudiante no encontrado." << endl;
+				}
 			}
 
+			if (dojos.size() > 1) {
+				dojos[1]->mostrarEstudiantes();
+				cout << "Ingrese la posición del estudiante a modificar: ";
+				int pos;
+				cin >> pos;
 
-			cout << "Estudiantes Dojo BlockChain\n";
-			int i = 0;
-			for (const auto& estudiante : Est_Blockchain) {
-				cout << i++ << ")  Nombre: " << estudiante->getNombre() << ", Edad: " << estudiante->getEdad() << "\n";
+				if (pos >= 0 && pos < 4 && dojos[1]->getEstudiantes()[pos] != nullptr) {
+					string nuevoNombre;
+					int nuevaEdad;
+
+					cout << "Ingrese el nuevo nombre: ";
+					cin >> nuevoNombre;
+					cout << "Ingrese la nueva edad: ";
+					cin >> nuevaEdad;
+
+					dojos[1]->getEstudiantes()[pos]->setNombre(nuevoNombre);
+					dojos[1]->getEstudiantes()[pos]->setEdad(nuevaEdad);
+				}
+				else {
+					cout << "Posición inválida o estudiante no encontrado." << endl;
+				}
 			}
 		}
 			  break;
@@ -93,30 +137,55 @@ void menu() {
 
 			switch (dojo) {
 			case 1: {
-				cout << "Estudiantes Dojo Cobra\n";
-				int i = 0;
-				for (const auto& estudiante : Est_Cobra) {
-					cout << i++ << ")  Nombre: " << estudiante->getNombre() << ", Edad: " << estudiante->getEdad() << "\n";
-				}
+				if (dojos.size() > 0) {
+					dojos[0]->mostrarEstudiantes();
+					cout << "Ingrese la posición del estudiante a eliminar: ";
+					int pos;
+					cin >> pos;
 
+					if (pos >= 0 && pos < 4 && dojos[0]->getEstudiantes()[pos] != nullptr) {
+						dojos[0]->eliminarEstudiante(dojos[0]->getEstudiantes()[pos]);
+						cout << "Estudiante eliminado correctamente." << endl;
+					}
+					else {
+						cout << "Posición inválida o estudiante no encontrado." << endl;
+					}
+				}
+				else {
+					cout << "No se encontró el Dojo Cobra. Por favor, crea el Dojo primero." << endl;
+				}
 			}
 				  break;
 
 			case 2: {
-				cout << "Estudiantes Dojo BlockChain\n";
-				int i = 0;
-				for (const auto& estudiante : Est_Blockchain) {
-					cout << i++ << ")  Nombre: " << estudiante->getNombre() << ", Edad: " << estudiante->getEdad() << "\n";
-				}
+				if (dojos.size() > 1) {
+					dojos[1]->mostrarEstudiantes();
+					cout << "Ingrese la posición del estudiante a eliminar: ";
+					int pos;
+					cin >> pos;
 
+					if (pos >= 0 && pos < 4 && dojos[1]->getEstudiantes()[pos] != nullptr) {
+						dojos[1]->eliminarEstudiante(dojos[1]->getEstudiantes()[pos]);
+						cout << "Estudiante eliminado correctamente." << endl;
+					}
+					else {
+						cout << "Posición inválida o estudiante no encontrado." << endl;
+					}
+				}
+				else {
+					cout << "No se encontró el Dojo Blockchain. Por favor, crea el Dojo primero." << endl;
+				}
 			}
 				  break;
 			}
 		}
+			  break;
 		}
+
 		cout << "-----------------------------------------------\n\n";
 	} while (opcion != 8);
 }
+
 
 int main() {
 	menu();

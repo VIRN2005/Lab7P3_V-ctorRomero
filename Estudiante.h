@@ -26,6 +26,8 @@ public:
 	int getOverall() const;
 	int getResistencia() const;
 	void recibirAtaque(int puntos);
+	void setNombre(const string&);
+	void setEdad(int);
 };
 
 #endif

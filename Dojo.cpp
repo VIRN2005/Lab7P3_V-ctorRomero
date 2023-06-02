@@ -10,17 +10,19 @@ string Dojo::getNombre() const {
 	return nombre;
 }
 
-void Dojo::addEstudiante(Estudiante* student) {
+vector<Estudiante*> getEstudiantes() {
+	return estudiantes;
+}
 
+void Dojo::mostrarEstudiantes() const {
+	std::cout << "Estudiantes del Dojo " << nombre << ":" << std::endl;
 	for (int i = 0; i < 4; i++) {
-		if (estudiantes[i] == nullptr) {
-			estudiantes[i] = student;
-			cout << "El estudiante " << student->getNombre() << " ha sido agregado al Dojo " << nombre << endl;
-			return;
+		if (estudiantes[i] != nullptr) {
+			std::cout << "Nombre: " << estudiantes[i]->getNombre() << ", Cinta: " << estudiantes[i]->getCinta()->getColorCinta() << std::endl;
 		}
 	}
-	cout << "El Dojo " << nombre << " ya tiene el máximo de estudiantes permitidos" << endl;
 }
+
 
 void Dojo::realizarAtaque(Estudiante* attacker, Estudiante* def) {
 	int attack = attacker->getOverall() * attacker->getCinta()->getPorcentaje();
@@ -35,12 +37,9 @@ void Dojo::realizarAtaque(Estudiante* attacker, Estudiante* def) {
 }
 
 void Dojo::eliminarEstudiante(Estudiante* estudiante) {
-	for (int i = 0; i < 4; i++) {
-		if (estudiantes[i] == estudiante) {
-			delete estudiantes[i];
-			estudiantes[i] = nullptr;
-			cout << "El estudiante " << estudiante->getNombre() << " del Dojo " << nombre << " ha sido eliminado del torneo." << endl;
-			return;
-		}
+	auto it = find(estudiantes.begin(), estudiantes.end(), estudiante);
+	if (it != estudiantes.end()) {
+		delete* it;
+		estudiantes.erase(it);
 	}
 }

@@ -45,3 +45,11 @@ void Estudiante::recibirAtaque(int puntos) {
 		vida -= daño;
 	}
 }
+
+void Estudiante::setNombre(const std::string& nombre) {
+	this->nombre = nombre;
+}
+
+void Estudiante::setEdad(int edad) {
+	this->edad = edad;
+}

@@ -3,23 +3,24 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Estudiante.h"
 using namespace std;
 
 class Dojo {
 private:
 	string nombre;
-	Estudiante* estudiantes[4];
+	vector<Estudiante*> estudiantes;
 
 public:
 	Dojo();
 	Dojo(string);
 	string getNombre() const;
-	void mostrarRegistros();
+	//void mostrarRegistros();
+	void mostrarEstudiantes() const;
+	vector<Estudiante*> getEstudiantes();
 	void addEstudiante(Estudiante*);
-	void enfrentamiento();
-
-private:
+	//void enfrentamiento();
 	void realizarAtaque(Estudiante*, Estudiante*);
 	void eliminarEstudiante(Estudiante*);
 };
