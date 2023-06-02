@@ -21,9 +21,27 @@
     <ClCompile Include="Cinta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Estudiante.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EstudianteCobra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EstudianteBlockchain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cinta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Estudiante.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EstudianteCobra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EstudianteBlockchain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

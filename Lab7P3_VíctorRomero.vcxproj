@@ -128,10 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cinta.cpp" />
+    <ClCompile Include="Estudiante.cpp" />
+    <ClCompile Include="EstudianteBlockchain.cpp" />
+    <ClCompile Include="EstudianteCobra.cpp" />
     <ClCompile Include="Lab7P3_VíctorRomero.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cinta.h" />
+    <ClInclude Include="Estudiante.h" />
+    <ClInclude Include="EstudianteBlockchain.h" />
+    <ClInclude Include="EstudianteCobra.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
