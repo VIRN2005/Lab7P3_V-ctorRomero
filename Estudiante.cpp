@@ -18,6 +18,10 @@ string Estudiante::getNombre() const {
 	return nombre;
 }
 
+int Estudiante::getEdad() const {
+	return edad;
+}
+
 int Estudiante::getVida() const {
 	return vida;
 }

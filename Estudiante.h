@@ -21,6 +21,7 @@ public:
 	~Estudiante();
 	string getNombre() const;
 	int getVida() const;
+	int getEdad() const;
 	Cinta* getCinta() const;
 	int getOverall() const;
 	int getResistencia() const;
