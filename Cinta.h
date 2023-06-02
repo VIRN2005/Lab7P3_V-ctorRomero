@@ -8,7 +8,6 @@ using namespace std;
 class Cinta {
 private:
 	int nivel;
-	string colorCinta;
 
 public:
 	Cinta();
@@ -16,8 +15,8 @@ public:
 	int getNivel() const;
 	string getColorCinta() const;
 	float getPorcentaje() const;
+	Cinta& operator++();
+	Cinta& operator--();
 };
 
 #endif
-
-

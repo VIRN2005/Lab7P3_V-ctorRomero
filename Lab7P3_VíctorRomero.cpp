@@ -10,7 +10,7 @@ using namespace std;
 
 void menu() {
 	int opcion;
-	vector <Dojo*> dojos;
+	vector<Dojo*> dojos;
 
 	do {
 		cout << "---MENU---\n";
@@ -37,7 +37,7 @@ void menu() {
 			cin >> dojo;
 
 			switch (dojo) {
-			case 1: { //DojoCobra
+			case 1: { //Dojo Cobra
 				string nombre = "";
 				cout << "Ingrese el Nombre: ";
 				cin >> nombre;
@@ -85,7 +85,7 @@ void menu() {
 				int pos;
 				cin >> pos;
 
-				if (pos >= 0 && pos < 4 && dojos[0]->getEstudiantes()[pos] != nullptr) {
+				if (pos >= 0 && pos < dojos[0]->getNumeroEstudiantes() && dojos[0]->getEstudiantes()[pos] != nullptr) {
 					string nuevoNombre;
 					int nuevaEdad;
 
@@ -108,7 +108,7 @@ void menu() {
 				int pos;
 				cin >> pos;
 
-				if (pos >= 0 && pos < 4 && dojos[1]->getEstudiantes()[pos] != nullptr) {
+				if (pos >= 0 && pos < dojos[1]->getNumeroEstudiantes() && dojos[1]->getEstudiantes()[pos] != nullptr) {
 					string nuevoNombre;
 					int nuevaEdad;
 
@@ -143,7 +143,7 @@ void menu() {
 					int pos;
 					cin >> pos;
 
-					if (pos >= 0 && pos < 4 && dojos[0]->getEstudiantes()[pos] != nullptr) {
+					if (pos >= 0 && pos < dojos[0]->getNumeroEstudiantes() && dojos[0]->getEstudiantes()[pos] != nullptr) {
 						dojos[0]->eliminarEstudiante(dojos[0]->getEstudiantes()[pos]);
 						cout << "Estudiante eliminado correctamente." << endl;
 					}
@@ -164,7 +164,7 @@ void menu() {
 					int pos;
 					cin >> pos;
 
-					if (pos >= 0 && pos < 4 && dojos[1]->getEstudiantes()[pos] != nullptr) {
+					if (pos >= 0 && pos < dojos[1]->getNumeroEstudiantes() && dojos[1]->getEstudiantes()[pos] != nullptr) {
 						dojos[1]->eliminarEstudiante(dojos[1]->getEstudiantes()[pos]);
 						cout << "Estudiante eliminado correctamente." << endl;
 					}
@@ -180,13 +180,60 @@ void menu() {
 			}
 		}
 			  break;
+
+		case 4: { // Listar
+			if (dojos.size() > 0) {
+				dojos[0]->mostrarEstudiantes();
+			}
+
+			if (dojos.size() > 1) {
+				dojos[1]->mostrarEstudiantes();
+			}
+		}
+			  break;
+
+		case 5: { // Promover Cinta
+			if (dojos.size() > 0) {
+				dojos[0]->mostrarEstudiantes();
+			}
+
+			if (dojos.size() > 1) {
+				dojos[1]->mostrarEstudiantes();
+			}
+
+			/*cout << "Nivel inicial de la cinta: " << Cinta.getNivel() << endl;
+			++cinta;
+			cout << "Nivel de la cinta después de incrementar: " << cinta.getNivel() << endl;*/
+		}
+			  break;
+
+		case 6: { // Degradar Cinta
+			if (dojos.size() > 0) {
+				dojos[0]->mostrarEstudiantes();
+			}
+
+			if (dojos.size() > 1) {
+				dojos[1]->mostrarEstudiantes();
+			}
+
+			/*cout << "Nivel inicial de la cinta: " << Cinta.getNivel() << endl;
+			--cinta;
+			std::cout << "Nivel de la cinta después de decrementar: " << cinta.getNivel() << endl;*/
+		}
+			  break;
+
+		case 7: {
+			// Simulacion
+		}
+			  break;
 		}
 
 		cout << "-----------------------------------------------\n\n";
 	} while (opcion != 8);
 }
 
-
 int main() {
 	menu();
+
+	return 0;
 }

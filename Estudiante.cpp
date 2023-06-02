@@ -11,7 +11,6 @@ Estudiante::Estudiante(string _nombre, int _edad, Cinta* _cinta) : nombre(_nombr
 }
 
 Estudiante::~Estudiante() {
-	delete cinta;
 }
 
 string Estudiante::getNombre() const {
@@ -46,10 +45,25 @@ void Estudiante::recibirAtaque(int puntos) {
 	}
 }
 
-void Estudiante::setNombre(const std::string& nombre) {
+void Estudiante::setNombre(const string& nombre) {
 	this->nombre = nombre;
 }
 
 void Estudiante::setEdad(int edad) {
 	this->edad = edad;
 }
+
+void Estudiante::setCinta(Cinta* _cinta) {
+	this->cinta = _cinta;
+}
+
+void Estudiante::mostrar() const {
+	cout << "Nombre: " << nombre << endl;
+	cout << "Edad: " << edad << endl;
+	cout << "Cinta: " << cinta->getColorCinta() << endl;
+	cout << "Vida: " << vida << endl;
+	cout << "Fuerza: " << fuerza << endl;
+	cout << "Resistencia: " << resistencia << endl;
+	cout << "Overall: " << overall << endl;
+}
+

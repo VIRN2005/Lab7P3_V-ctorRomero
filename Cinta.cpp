@@ -102,3 +102,18 @@ float Cinta::getPorcentaje() const {
 	}
 	return porcentaje;
 }
+
+Cinta& Cinta::operator++() {
+	if (nivel < 7) {
+		nivel++;
+	}
+	return *this;
+}
+
+Cinta& Cinta::operator--() {
+	if (nivel > 1) {
+		nivel--;
+	}
+	return *this;
+}
+

@@ -18,18 +18,22 @@ protected:
 
 public:
 	Estudiante(string _nombre, int _edad, Cinta* _cinta);
-	~Estudiante();
+	virtual ~Estudiante();
+
 	string getNombre() const;
 	int getVida() const;
 	int getEdad() const;
 	Cinta* getCinta() const;
+
 	int getOverall() const;
 	int getResistencia() const;
 	void recibirAtaque(int puntos);
+
 	void setNombre(const string&);
 	void setEdad(int);
+	void setCinta(Cinta*);
+
+	void mostrar() const;
 };
 
 #endif
-
-

@@ -13,8 +13,8 @@ private:
 public:
 	EstudianteBlockchain(string _nombre, int _edad, Cinta* _cinta);
 	int getFuerzaBrazos() const;
+	void operator++();
+	void operator--();
 };
 
 #endif
-
-

@@ -13,7 +13,8 @@ private:
 public:
 	EstudianteCobra(string _nombre, int _edad, Cinta* _cinta);
 	int getFuerzaPiernas() const;
+	void operator++();
+	void operator--();
 };
 
 #endif
-
