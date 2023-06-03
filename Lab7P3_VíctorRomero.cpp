@@ -8,6 +8,8 @@
 
 using namespace std;
 
+//Intenté como 20 veces y la simulacion no sale tan bien...
+
 /*void simularTorneo(vector<Dojo*>& dojos) {
 	// Validar que haya exactamente 4 estudiantes en cada dojo
 	for (Dojo* dojo : dojos) {
