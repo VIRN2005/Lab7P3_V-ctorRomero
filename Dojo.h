@@ -26,6 +26,8 @@ public:
 	int getNumeroEstudiantes() const;
 	void promoverEstudiante(Estudiante*);
 	void degradarEstudiante(Estudiante*);
+	void simulacion();
+
 };
 
 #endif

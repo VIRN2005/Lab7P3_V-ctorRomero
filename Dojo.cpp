@@ -54,7 +54,7 @@ void Dojo::eliminarEstudiante(Estudiante* estudiante) {
 	}
 }
 
-void Dojo::enfrentamiento() {
+/*void Dojo::enfrentamiento() {
 	cout << "Comienza el enfrentamiento en el Dojo " << nombre << "!" << endl;
 
 	while (true) {
@@ -81,4 +81,4 @@ void Dojo::enfrentamiento() {
 	else {
 		cout << "El Dojo " << nombre << " ha sido eliminado del torneo." << endl;
 	}
-}
+}*/

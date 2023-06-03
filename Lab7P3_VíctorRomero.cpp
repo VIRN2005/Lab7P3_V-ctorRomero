@@ -8,9 +8,120 @@
 
 using namespace std;
 
+/*void simularTorneo(vector<Dojo*>& dojos) {
+	// Validar que haya exactamente 4 estudiantes en cada dojo
+	for (Dojo* dojo : dojos) {
+		if (dojo->getNumeroEstudiantes() != 4) {
+			cout << "Debe haber exactamente 4 estudiantes en cada dojo para iniciar el torneo." << endl;
+			return;
+		}
+	}
+
+	// Inicializar vector de estudiantes en el torneo
+	vector<Estudiante*> estudiantesTorneo;
+
+	// Agregar estudiantes de cada dojo al torneo
+	for (Dojo* dojo : dojos) {
+		vector<Estudiante*> estudiantes = dojo->getEstudiantes();
+		estudiantesTorneo.insert(estudiantesTorneo.end(), estudiantes.begin(), estudiantes.end());
+	}
+
+	// Comenzar el torneo
+	while (true) {
+		// Obtener cantidad de estudiantes de cada dojo en el torneo
+		int estudiantesDojoCobra = 0;
+		int estudiantesDojoBlockchain = 0;
+		for (Estudiante* estudiante : estudiantesTorneo) {
+			if (estudiante->getDojo()->getNombre() == "Cobra") {
+				estudiantesDojoCobra++;
+			}
+			else if (estudiante->getDojo()->getNombre() == "Blockchain") {
+				estudiantesDojoBlockchain++;
+			}
+		}
+
+		// Verificar condiciones de finalización del torneo
+		if (estudiantesDojoCobra == 0 && estudiantesDojoBlockchain > 0) {
+			cout << "¡El Dojo ganador es Blockchain!" << endl;
+			break;
+		}
+		else if (estudiantesDojoCobra > 0 && estudiantesDojoBlockchain == 0) {
+			cout << "¡El Dojo ganador es Cobra!" << endl;
+			break;
+		}
+		else if (estudiantesDojoCobra == 0 && estudiantesDojoBlockchain == 0) {
+			cout << "¡El torneo terminó en empate!" << endl;
+			break;
+		}
+
+		// Seleccionar estudiantes para enfrentamiento
+		Estudiante* estudiante1 = nullptr;
+		Estudiante* estudiante2 = nullptr;
+
+		// Si hay más estudiantes en un dojo, se selecciona aleatoriamente un estudiante de ese dojo
+		if (estudiantesDojoCobra > estudiantesDojoBlockchain) {
+			while (!estudiante1 || !estudiante2 || estudiante1->getDojo() == estudiante2->getDojo()) {
+				estudiante1 = dojos[0]->getEstudiantes()[rand() % 4];
+				estudiante2 = dojos[1]->getEstudiantes()[rand() % 4];
+			}
+		}
+		else if (estudiantesDojoBlockchain > estudiantesDojoCobra) {
+			while (!estudiante1 || !estudiante2 || estudiante1->getDojo() == estudiante2->getDojo()) {
+				estudiante1 = dojos[1]->getEstudiantes()[rand() % 4];
+				estudiante2 = dojos[0]->getEstudiantes()[rand() % 4];
+			}
+		}
+		else {
+			// Si hay igual cantidad de estudiantes en ambos dojos, se selecciona aleatoriamente un estudiante de cada dojo
+			while (!estudiante1 || !estudiante2 || estudiante1->getDojo() == estudiante2->getDojo()) {
+				estudiante1 = dojos[0]->getEstudiantes()[rand() % 4];
+				estudiante2 = dojos[1]->getEstudiantes()[rand() % 4];
+			}
+		}
+
+		// Calcular ataques y defensas
+		double porcentajeAtaqueEstudiante1 = estudiante1->getOverallFuerza() * estudiante1->getPorcentajeCinta();
+		double porcentajeAtaqueEstudiante2 = estudiante2->getOverallFuerza() * estudiante2->getPorcentajeCinta();
+
+		double porcentajeDefensaEstudiante1 = estudiante1->getResistencia() * estudiante1->getNivelCinta();
+		double porcentajeDefensaEstudiante2 = estudiante2->getResistencia() * estudiante2->getNivelCinta();
+
+		// Calcular daño recibido por cada estudiante
+		int danoEstudiante1 = static_cast<int>(porcentajeAtaqueEstudiante2 - porcentajeDefensaEstudiante1);
+		int danoEstudiante2 = static_cast<int>(porcentajeAtaqueEstudiante1 - porcentajeDefensaEstudiante2);
+
+		// Reducir vida de los estudiantes según el daño recibido
+		estudiante1->reducirVida(danoEstudiante1);
+		estudiante2->reducirVida(danoEstudiante2);
+
+		// Verificar si algún estudiante ha quedado fuera del torneo
+		if (estudiante1->getVida() <= 0) {
+			estudiantesTorneo.erase(std::remove(estudiantesTorneo.begin(), estudiantesTorneo.end(), estudiante1), estudiantesTorneo.end());
+			delete estudiante1;
+		}
+		if (estudiante2->getVida() <= 0) {
+			estudiantesTorneo.erase(std::remove(estudiantesTorneo.begin(), estudiantesTorneo.end(), estudiante2), estudiantesTorneo.end());
+			delete estudiante2;
+		}
+	}
+
+	// Liberar memoria de los estudiantes eliminados
+	for (Dojo* dojo : dojos) {
+		for (Estudiante* estudiante : dojo->getEstudiantes()) {
+			delete estudiante;
+		}
+		dojo->limpiarEstudiantes();
+	}
+}*/
+
+
 void menu() {
 	int opcion;
 	vector<Dojo*> dojos;
+	Dojo* dojoCobra = new Dojo();
+	Dojo* dojoBlockchain = new Dojo();
+	dojos.push_back(dojoCobra);
+	dojos.push_back(dojoBlockchain);
 
 	do {
 		cout << "---MENU---\n";
@@ -79,13 +190,13 @@ void menu() {
 			  break;
 
 		case 2: { // MODIFICAR
-			if (dojos.size() > 0) {
-				dojos[0]->mostrarEstudiantes();
+			for (Dojo* dojo : dojos) {
+				dojo->mostrarEstudiantes();
 				cout << "Ingrese la posición del estudiante a modificar: ";
 				int pos;
 				cin >> pos;
 
-				if (pos >= 0 && pos < dojos[0]->getNumeroEstudiantes() && dojos[0]->getEstudiantes()[pos] != nullptr) {
+				if (pos >= 0 && pos < dojo->getNumeroEstudiantes() && dojo->getEstudiantes()[pos] != nullptr) {
 					string nuevoNombre;
 					int nuevaEdad;
 
@@ -94,31 +205,8 @@ void menu() {
 					cout << "Ingrese la nueva edad: ";
 					cin >> nuevaEdad;
 
-					dojos[0]->getEstudiantes()[pos]->setNombre(nuevoNombre);
-					dojos[0]->getEstudiantes()[pos]->setEdad(nuevaEdad);
-				}
-				else {
-					cout << "Posición inválida o estudiante no encontrado." << endl;
-				}
-			}
-
-			if (dojos.size() > 1) {
-				dojos[1]->mostrarEstudiantes();
-				cout << "Ingrese la posición del estudiante a modificar: ";
-				int pos;
-				cin >> pos;
-
-				if (pos >= 0 && pos < dojos[1]->getNumeroEstudiantes() && dojos[1]->getEstudiantes()[pos] != nullptr) {
-					string nuevoNombre;
-					int nuevaEdad;
-
-					cout << "Ingrese el nuevo nombre: ";
-					cin >> nuevoNombre;
-					cout << "Ingrese la nueva edad: ";
-					cin >> nuevaEdad;
-
-					dojos[1]->getEstudiantes()[pos]->setNombre(nuevoNombre);
-					dojos[1]->getEstudiantes()[pos]->setEdad(nuevaEdad);
+					dojo->getEstudiantes()[pos]->setNombre(nuevoNombre);
+					dojo->getEstudiantes()[pos]->setEdad(nuevaEdad);
 				}
 				else {
 					cout << "Posición inválida o estudiante no encontrado." << endl;
@@ -182,48 +270,68 @@ void menu() {
 			  break;
 
 		case 4: { // Listar
-			if (dojos.size() > 0) {
-				dojos[0]->mostrarEstudiantes();
-			}
-
-			if (dojos.size() > 1) {
-				dojos[1]->mostrarEstudiantes();
+			for (Dojo* dojo : dojos) {
+				dojo->mostrarEstudiantes();
 			}
 		}
 			  break;
 
 		case 5: { // Promover Cinta
-			if (dojos.size() > 0) {
-				dojos[0]->mostrarEstudiantes();
-			}
+			for (Dojo* dojo : dojos) {
+				dojo->mostrarEstudiantes();
+				cout << "Ingrese la posición del estudiante a promover cinta: ";
+				int pos;
+				cin >> pos;
 
-			if (dojos.size() > 1) {
-				dojos[1]->mostrarEstudiantes();
+				if (pos >= 0 && pos < dojo->getNumeroEstudiantes() && dojo->getEstudiantes()[pos] != nullptr) {
+					++(*dojo->getEstudiantes()[pos]->getCinta());
+					cout << "Cinta promovida correctamente." << endl;
+				}
+				else {
+					cout << "Posición inválida o estudiante no encontrado." << endl;
+				}
 			}
-
-			/*cout << "Nivel inicial de la cinta: " << Cinta.getNivel() << endl;
-			++cinta;
-			cout << "Nivel de la cinta después de incrementar: " << cinta.getNivel() << endl;*/
 		}
 			  break;
 
 		case 6: { // Degradar Cinta
-			if (dojos.size() > 0) {
-				dojos[0]->mostrarEstudiantes();
-			}
+			for (Dojo* dojo : dojos) {
+				dojo->mostrarEstudiantes();
+				cout << "Ingrese la posición del estudiante a degradar cinta: ";
+				int pos;
+				cin >> pos;
 
-			if (dojos.size() > 1) {
-				dojos[1]->mostrarEstudiantes();
+				if (pos >= 0 && pos < dojo->getNumeroEstudiantes() && dojo->getEstudiantes()[pos] != nullptr) {
+					--(*dojo->getEstudiantes()[pos]->getCinta());
+					cout << "Cinta degradada correctamente." << endl;
+				}
+				else {
+					cout << "Posición inválida o estudiante no encontrado." << endl;
+				}
 			}
-
-			/*cout << "Nivel inicial de la cinta: " << Cinta.getNivel() << endl;
-			--cinta;
-			std::cout << "Nivel de la cinta después de decrementar: " << cinta.getNivel() << endl;*/
 		}
 			  break;
 
 		case 7: {
 			// Simulacion
+			/*if (dojos.size() > 1) {
+				Dojo* dojoCobra = dojos[0];
+				Dojo* dojoBlockchain = dojos[1];
+
+				cout << "Simulación Dojo Cobra" << endl;
+				cout << "----------------------------------------" << endl;
+				dojoCobra->simulacion();
+
+				cout << endl;
+
+				cout << "Simulación Dojo Blockchain" << endl;
+				cout << "----------------------------------------" << endl;
+				dojoBlockchain->simulacion();
+			}
+			else {
+				cout << "No se encontraron los Dojos Cobra y Blockchain. Por favor, crea los Dojos primero." << endl;
+			}*/
+
 		}
 			  break;
 		}
@@ -237,3 +345,4 @@ int main() {
 
 	return 0;
 }
+
